@@ -6,6 +6,7 @@ body {
     height: 100vh;
     margin: 0;
     background: linear-gradient(135deg, #6a11cb, #11C37C);
+    padding: 10px;
 }
 
 .converter {
@@ -16,11 +17,19 @@ body {
     max-width: 400px;
     width: 100%;
     text-align: center;
+    box-sizing: border-box;
 }
 
 h1 {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: #333;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #555;
+    font-size: 0.9rem;
 }
 
 form {
@@ -36,13 +45,14 @@ button {
     font-size: 1em;
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-sizing: border-box;
+    width: 100%;
 }
-
 
 button:hover {
     background-color: #0056b3;
+    color: white;
 }
-
 
 #result,
 #market-rate-info {
@@ -50,7 +60,6 @@ button:hover {
     font-size: 1.2em;
     color: #333;
 }
-
 
 .ConvertBtn {
     align-items: center;
@@ -75,6 +84,7 @@ button:hover {
     touch-action: manipulation;
     white-space: nowrap;
     cursor: pointer;
+    width: 100%;
 }
 
 .ConvertBtn:active,
@@ -99,5 +109,6 @@ button:hover {
     .ConvertBtn {
         font-size: 24px;
         min-width: 196px;
+        width: auto;
     }
 }

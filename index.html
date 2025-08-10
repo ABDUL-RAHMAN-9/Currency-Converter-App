@@ -2,19 +2,19 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>currency converter App</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
     <div class="converter">
-        <h1>Currency Converter & Excahnge Rates</h1>
+        <h1>Currency Converter & Exchange Rates</h1>
         <p>Up to Date FX rates</p>
 
         <form id="converter-form">
-            <input type="number" id="amount" placeholder="Enter amount" required>
+            <input type="number" id="amount" placeholder="Enter amount" required />
             <select id="from-currency">
                 <option value="USD">USD - United States Dollar</option>
                 <option value="INR">INR - Indian Rupee</option>
@@ -39,15 +39,15 @@
                 <option value="CAD">CAD - Canadian Dollar</option>
                 <option value="AUD">AUD - Australian Dollar</option>
             </select>
-           <button class="ConvertBtn" role="button" type="submit"><span class="text">Convert</span></button> 
+            <button class="ConvertBtn" role="button" type="submit">
+                <span class="text">Convert</span>
+            </button>
         </form>
         <div id="result"></div>
         <div id="market-rate-info"></div>
     </div>
 
-
-    <script src="app.js">
-    </script>
+    <script src="app.js"></script>
 </body>
 
 </html>
