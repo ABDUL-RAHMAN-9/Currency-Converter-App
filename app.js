@@ -1,49 +1,108 @@
-// script.js
+const fromCurrency = document.querySelector("#from-currency");
+const toCurrency = document.querySelector("#to-currency");
+const amountInput = document.querySelector("#amount");
+const resultText = document.querySelector("#exchange-rate-text");
+const totalResult = document.querySelector("#total-result");
+const swapBtn = document.querySelector("#swap-btn");
+const convertBtn = document.querySelector("#convert-btn");
 
-document.getElementById("converter-form").addEventListener("submit", function (event) {
-    event.preventDefault();
-  
-    const amountInput = document.getElementById("amount");
-    const fromCurrency = document.getElementById("from-currency").value;
-    const toCurrency = document.getElementById("to-currency").value;
-    const resultDiv = document.getElementById("result");
-    const marketRateInfoDiv = document.getElementById("market-rate-info");
-  
-    const amount = parseFloat(amountInput.value);
-  
-    // Validate amount input
-    if (isNaN(amount) || amount <= 0) {
-      alert("Please enter a valid amount");
-      return;
+const country_list = {
+    USD: "US",
+    INR: "IN",
+    EUR: "EU",
+    GBP: "GB",
+    AED: "AE",
+    JPY: "JP",
+    AUD: "AU",
+    CAD: "CA",
+    CHF: "CH",
+    CNY: "CN",
+    HKD: "HK",
+    NZD: "NZ",
+};
+
+// Initialize Options
+[fromCurrency, toCurrency].forEach((select, index) => {
+    for (let code in country_list) {
+        let selected =
+            index === 0
+                ? code === "USD"
+                    ? "selected"
+                    : ""
+                : code === "INR"
+                ? "selected"
+                : "";
+        select.insertAdjacentHTML(
+            "beforeend",
+            `<option value="${code}" ${selected}>${code}</option>`
+        );
     }
+    select.addEventListener("change", (e) => updateFlag(e.target));
+});
+
+function updateFlag(element) {
+    const code = element.value;
+    const imgTag = element.parentElement.querySelector("img");
+    imgTag.src = `https://flagsapi.com/${country_list[code]}/flat/64.png`;
+    getExchangeRate();
+}
+
+async function getExchangeRate() {
+  let amountVal = amountInput.value;
   
-    // Use the free exchangerate-api endpoint (no API key needed)
-    const url = `https://api.exchangerate-api.com/v4/latest/${fromCurrency}`;
+  // We NO LONGER force amountInput.value = "1" here.
+  // This allows the user to clear the field.
+
+  // If the field is empty, we just treat the math as 0 for the display
+  let calculationValue = amountVal;
+  if (amountVal === "" || amountVal <= 0) {
+      calculationValue = 0; 
+  }
   
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (!data.rates[toCurrency]) {
-          resultDiv.innerText = `Sorry, no rate available for ${toCurrency}`;
-          marketRateInfoDiv.innerText = "";
-          return;
-        }
+  resultText.innerText = "Updating...";
   
-        const rate = data.rates[toCurrency];
-        const convertedAmount = amount * rate;
-  
-        resultDiv.innerText = `${amount.toFixed(2)} ${fromCurrency} = ${convertedAmount.toFixed(2)} ${toCurrency}`;
-        marketRateInfoDiv.innerText = `Market rates collected on: ${new Date(data.time_last_updated * 1000).toLocaleString()}`;
-      })
-      .catch((error) => {
-        console.error("Error fetching exchange rates:", error);
-        resultDiv.innerText = "Error fetching exchange rates. Please try again later.";
-        marketRateInfoDiv.innerText = "";
-      });
-  });
-  
+  try {
+      const response = await fetch(`https://api.exchangerate-api.com/v4/latest/${fromCurrency.value}`);
+      const data = await response.json();
+      const rate = data.rates[toCurrency.value];
+      
+      // Always show the 1-to-1 base rate for reference
+      resultText.innerText = `1 ${fromCurrency.value} = ${rate} ${toCurrency.value}`;
+      
+      // Calculate the total based on what user typed (or 0 if empty)
+      const total = (calculationValue * rate).toFixed(2);
+      totalResult.innerText = `${total} ${toCurrency.value}`;
+      
+  } catch (error) {
+      resultText.innerText = "Offline - Check Connection";
+      totalResult.innerText = "Error";
+  }
+}
+
+// --- NEW PRO FEATURE: Auto-select text on click ---
+// This makes it so when you click the '1', you can just type '50' 
+// and it replaces the '1' automatically without needing backspace.
+amountInput.addEventListener("focus", () => {
+  amountInput.select();
+});
+
+// Keep the rest of your event listeners (swapBtn, input, load, etc.)
+
+// --- BUG FIX: Block non-numeric keys ---
+amountInput.addEventListener("keydown", (e) => {
+    if (["e", "E", "+", "-"].includes(e.key)) {
+        e.preventDefault();
+    }
+});
+
+swapBtn.addEventListener("click", () => {
+    let tempCode = fromCurrency.value;
+    fromCurrency.value = toCurrency.value;
+    toCurrency.value = tempCode;
+    updateFlag(fromCurrency);
+    updateFlag(toCurrency);
+});
+
+amountInput.addEventListener("input", getExchangeRate);
+convertBtn.addEventListener("click", getExchangeRate);
+window.addEventListener("load", getExchangeRate);
