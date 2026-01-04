@@ -124,6 +124,7 @@ select {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 16px;
 }
+
 /* Fix for the Dropdown List Visibility */
 select option {
     background-color: #24243e;
@@ -201,18 +202,23 @@ footer {
     color: black;
 }
 
-/* Removes the spin buttons (arrows) from the number input for a cleaner look */
+/* Input Specifics - Fixes the vendorPrefix warning */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
+    appearance: none;
+    /* Add this line to satisfy the standard */
     margin: 0;
 }
 
 input[type=number] {
     -moz-appearance: textfield;
+    /* For Firefox */
+    appearance: textfield;
+    /* Standard property */
     text-align: center;
-    /* Centers the number for better UI */
     font-weight: 600;
+    font-size: 1.2rem;
 }
 
 
@@ -221,4 +227,3 @@ input[type=number] {
         padding: 20px;
     }
 }
-
