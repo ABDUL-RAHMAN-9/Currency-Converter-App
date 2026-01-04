@@ -1,114 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    --primary: #7f00ff;
+    --secondary: #e100ff;
+    --bg-dark: #0f0c29;
+    --glass: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
 body {
-    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
-    background: linear-gradient(135deg, #6a11cb, #11C37C);
-    padding: 10px;
-}
-
-.converter {
-    background-color: #fff;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: white;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
+}
+
+.glass-container {
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 24px;
     width: 100%;
+    max-width: 450px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+header {
     text-align: center;
-    box-sizing: border-box;
+    margin-bottom: 30px;
 }
 
-h1 {
-    margin-bottom: 10px;
-    color: #333;
+header h1 {
+    font-size: 1.8rem;
+    letter-spacing: 1px;
 }
 
-p {
-    margin-top: 0;
-    margin-bottom: 20px;
-    color: #555;
-    font-size: 0.9rem;
+header p {
+    font-size: 0.8rem;
+    opacity: 0.7;
 }
 
-form {
+.converter-box {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
+}
+
+.input-group label,
+.select-box label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #ccc;
 }
 
 input,
-select,
-button {
-    padding: 10px;
-    font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+select {
     width: 100%;
-}
-
-button:hover {
-    background-color: #0056b3;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
     color: white;
+    font-size: 1rem;
+    outline: none;
 }
 
-#result,
-#market-rate-info {
-    margin-top: 20px;
-    font-size: 1.2em;
-    color: #333;
-}
-
-.ConvertBtn {
-    align-items: center;
-    background-image: linear-gradient(144deg, #AF40FF, #5B42F3 50%, #00DDEB);
-    border: 0;
-    border-radius: 8px;
-    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
-    box-sizing: border-box;
-    color: #FFFFFF;
+.selection-row {
     display: flex;
-    font-family: Phantomsans, sans-serif;
-    font-size: 20px;
-    margin-top: 20px;
-    justify-content: center;
-    line-height: 1em;
-    max-width: 100%;
-    min-width: 140px;
-    padding: 3px;
-    text-decoration: none;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    white-space: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.select-container {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 5px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.select-container img {
+    width: 30px;
+    height: 20px;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+.select-container select {
+    border: none;
+    background: transparent;
     cursor: pointer;
-    width: 100%;
 }
 
-.ConvertBtn:active,
-.ConvertBtn:hover {
-    outline: 0;
+.reverse-icon {
+    margin-top: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 1.2rem;
+    color: var(--secondary);
 }
 
-.ConvertBtn span {
-    background-color: rgb(5, 6, 45);
-    padding: 16px 24px;
-    border-radius: 6px;
-    width: 100%;
-    height: 100%;
-    transition: 300ms;
+.reverse-icon:hover {
+    transform: rotate(180deg);
 }
 
-.ConvertBtn:hover span {
-    background: none;
+.result-section {
+    text-align: center;
+    margin: 20px 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+}
+/* Fix for the Dropdown List Visibility */
+select option {
+    background-color: #24243e;
+    color: white;
+    padding: 10px;
 }
 
-@media (min-width: 768px) {
-    .ConvertBtn {
-        font-size: 24px;
-        min-width: 196px;
-        width: auto;
+/* Improve Select Box Hover State */
+.select-container:hover {
+    border-color: var(--secondary);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Focus state for input */
+input:focus,
+select:focus {
+    border-color: var(--secondary);
+    box-shadow: 0 0 10px rgba(225, 0, 255, 0.2);
+}
+
+#exchange-rate-text {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    color: #00d2ff;
+}
+
+#total-result {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.main-btn {
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.main-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(127, 0, 255, 0.4);
+}
+
+footer {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+.dev-credit span {
+    display: block;
+    opacity: 0.6;
+}
+
+.github-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+    transition: 0.3s;
+    padding: 5px 15px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.github-link:hover {
+    background: white;
+    color: black;
+}
+
+/* Removes the spin buttons (arrows) from the number input for a cleaner look */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    text-align: center;
+    /* Centers the number for better UI */
+    font-weight: 600;
+}
+
+
+@media (max-width: 400px) {
+    .glass-container {
+        padding: 20px;
     }
 }
+
