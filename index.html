@@ -2,51 +2,70 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>currency converter App</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Currency Converter | Abdul Rahman</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
-    <div class="converter">
-        <h1>Currency Converter & Exchange Rates</h1>
-        <p>Up to Date FX rates</p>
 
-        <form id="converter-form">
-            <input type="number" id="amount" placeholder="Enter amount" required />
-            <select id="from-currency">
-                <option value="USD">USD - United States Dollar</option>
-                <option value="INR">INR - Indian Rupee</option>
-                <option value="AED">AED - UAE Dirham</option>
-                <option value="GBP">GBP - British Pound</option>
-                <option value="CHF">CHF - Swiss Franc</option>
-                <option value="JPY">JPY - Japanese Yen</option>
-                <option value="EUR">EUR - Euro</option>
-                <option value="CNY">CNY - Chinese Yuan</option>
-                <option value="CAD">CAD - Canadian Dollar</option>
-                <option value="AUD">AUD - Australian Dollar</option>
-            </select>
-            <select id="to-currency">
-                <option value="INR">INR - Indian Rupee</option>
-                <option value="USD">USD - United States Dollar</option>
-                <option value="AED">AED - UAE Dirham</option>
-                <option value="GBP">GBP - British Pound</option>
-                <option value="CHF">CHF - Swiss Franc</option>
-                <option value="JPY">JPY - Japanese Yen</option>
-                <option value="EUR">EUR - Euro</option>
-                <option value="CNY">CNY - Chinese Yuan</option>
-                <option value="CAD">CAD - Canadian Dollar</option>
-                <option value="AUD">AUD - Australian Dollar</option>
-            </select>
-            <button class="ConvertBtn" role="button" type="submit">
-                <span class="text">Convert</span>
-            </button>
-        </form>
-        <div id="result"></div>
-        <div id="market-rate-info"></div>
+    <div class="glass-container">
+        <header>
+            <h1>Currency Exchanger</h1>
+            <p>Real-time Global Market Rates</p>
+        </header>
+
+        <div class="converter-box">
+            <div class="input-group">
+                <label>Amount</label>
+                <!-- Inside the .input-group -->
+                <input type="number" id="amount" value="1" placeholder="0.00" inputmode="numeric">
+            </div>
+
+            <div class="selection-row">
+                <div class="select-box">
+                    <label>From</label>
+                    <div class="select-container">
+                        <img src="https://flagsapi.com/US/flat/64.png" alt="flag" id="from-flag">
+                        <select id="from-currency"></select>
+                    </div>
+                </div>
+
+                <div class="reverse-icon" id="swap-btn">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                </div>
+
+                <div class="select-box">
+                    <label>To</label>
+                    <div class="select-container">
+                        <img src="https://flagsapi.com/IN/flat/64.png" alt="flag" id="to-flag">
+                        <select id="to-currency"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-section">
+                <p id="exchange-rate-text">Getting latest rates...</p>
+                <h2 id="total-result">--</h2>
+            </div>
+
+            <button id="convert-btn" class="main-btn">Update Rates</button>
+        </div>
+
+        <footer>
+            <div class="dev-credit">
+                <span>Designed & Developed by</span>
+                <a href="https://github.com/ABDUL-RAHMAN-9" target="_blank" class="github-link">
+                    Abdul Rahman <i class="fa-brands fa-github"></i>
+                </a>
+            </div>
+        </footer>
     </div>
 
+    <script src="country-list.js"></script>
     <script src="app.js"></script>
 </body>
 
